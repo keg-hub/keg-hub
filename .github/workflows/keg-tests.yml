@@ -27,9 +27,16 @@ jobs:
         id: get-changed-repos
         run: bash scripts/ci/getChangedRepos.sh
 
-      - name: "Install Yarn Dependencies"
-        id: install-yarn-dependencies
-        run: bash scripts/ci/runYarnCmd.sh "install"
+      - name: "Install - Cache Dependencies"
+        uses: bahmutov/npm-install@v1
+        with:
+          install-command: yarn install --ignore-engines --frozen-lockfile --silent --force
+          working-directory: |
+            repos/jsutils
+            repos/keg-components
+            repos/keg-core
+            repos/re-theme
+            repos/tap-resolver
 
       - name: "Run Repo Format"
         id: run-repo-format

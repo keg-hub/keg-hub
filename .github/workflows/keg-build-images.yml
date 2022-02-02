@@ -19,8 +19,7 @@ jobs:
         shell: bash
     env:
       GIT_TOKEN: ${{ secrets.KEG_ACTION_TOKEN }}
-      # TODO: update this back to develop once next-6-0-0 is merged
-      DEFAULT_KEG_CLI_BRANCH: next-6-0-0
+      DEFAULT_KEG_CLI_BRANCH: develop
       KEG_CLI_PATH: ${{ github.workspace }}/keg-cli
       KEG_CLI_USER: lancetipton
       KEG_GLOBAL_CONFIG: ${{ github.workspace }}/keg-cli/.kegConfig/cli.config.json

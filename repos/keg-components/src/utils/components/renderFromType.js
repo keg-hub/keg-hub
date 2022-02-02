@@ -1,5 +1,5 @@
 import React from 'react'
-import { isFunc, isArr } from '@keg-hub/jsutils'
+import { isArr } from '@keg-hub/jsutils'
 import { isValidComponent } from '../validate/isValidComponent'
 
 /**
@@ -12,17 +12,11 @@ import { isValidComponent } from '../validate/isValidComponent'
  * @returns {React Component|Object} - rendered React Component
  */
 export const renderFromType = (Element, props, Wrapper) => {
-  return isValidComponent(Element) ? (
-    isFunc(Element) ? (
-      <Element {...props} />
-    ) : (
-      Element
-    )
-  ) : isArr(Element) ? (
-    Element
-  ) : Wrapper ? (
-    <Wrapper {...props}>{ Element }</Wrapper>
-  ) : (
-    Element
-  )
+  return isValidComponent(Element)
+    ? React.cloneElement(Element, props, Element.children)
+    : isArr(Element)
+      ? Element
+      : isValidComponent(Wrapper)
+        ? (<Wrapper {...props}>{ Element }</Wrapper>)
+        : Element
 }

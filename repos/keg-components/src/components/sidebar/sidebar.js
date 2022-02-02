@@ -44,6 +44,7 @@ const useSidebarStyles = ({ initial, styles, sidebarWidth, location }) => {
   const sidebarStyles = useStyle('sidebar', styles)
   const width = getSidebarWidth(sidebarWidth, initial, sidebarStyles)
 
+  const loc = location === 'right' ? 'right' : 'left'
   const mainStyles = useMemo(() => {
     return {
       flex: 1,
@@ -54,7 +55,11 @@ const useSidebarStyles = ({ initial, styles, sidebarWidth, location }) => {
       height: dims.height,
       ...sidebarStyles?.main,
       width: width,
-      [location === 'right' ? location : 'left']: initial,
+      // TODO: investigate this
+      // When sidebar loc is right, need to adjust the right value with the width of the element
+      // So using the width is needed
+      // But because initial exists, we have to use it on the first render, then width after that?
+      [loc]: loc === 'left' ? initial : width
     }
   }, [ location, width, initial, sidebarStyles?.main, dims?.height ])
 
